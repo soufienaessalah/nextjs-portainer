@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -18,12 +17,13 @@ services:
     container_name: node-express
     working_dir: /usr/src/app
     volumes:
-      - ./node-express:/usr/src/app
+      - ${PROJECT_DATA_PATH}/node-express:/usr/src/app
     command: sh -c "npm init -y && npm install && npm start"
     ports:
       - "3001:3000"
     environment:
       DATABASE_URL: postgres://user:password@postgres:5432/mydatabase
+      PROJECT_DATA_PATH: /path/to/project
     depends_on:
       - postgres
 
@@ -41,4 +41,3 @@ services:
 
 volumes:
   postgres-data:
-
